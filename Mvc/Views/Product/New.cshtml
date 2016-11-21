@@ -1,0 +1,69 @@
+﻿@model Mvc.Models.ProductView
+
+@{
+    ViewBag.Title = "New";
+
+}
+
+<h2>New Product</h2>
+
+@using (Html.BeginForm("Save", "Product"))
+{
+
+    @Html.ValidationSummary(true, "Please Fix Errors Below")
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.Id)
+
+        @Html.TextBoxFor(m => m.Product.Id, new { @class = "form-control", style = "height: 35px; width:160px" })
+        @Html.ValidationMessageFor(m => m.Product.Id)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.ProductName)
+
+        @Html.TextBoxFor(m => m.Product.ProductName, new { @class = "form-control", style = "height: 35px; width:160px" })
+        @Html.ValidationMessageFor(m => m.Product.ProductName)
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.AddDate)
+
+        @Html.TextBoxFor(m => m.Product.AddDate, "{0:d MMM yyyy}", new { @class = "form-control", style = "height: 35px; width:160px" })
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Product.Active) Active?
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Product.Booking) Booking?
+            @Html.ValidationMessageFor(m => m.Product.Booking)
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Product.Discontnuied) Discontnuied?
+        </label>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.GroupId)
+        @Html.DropDownListFor(m => m.Product.GroupId, new SelectList(Model.ProductGroups, "GroupId", "GroupName")
+              , "Select Group", new { @class = "form-control", style = "height: 36px; width:160px" })
+        @Html.ValidationMessageFor(m => m.Product.GroupId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product.Type)
+        @Html.EnumDropDownListFor(m => m.Product.Type, new { @class = "form-control", style = "height: 36px ; width:100px" })
+    </div>
+
+
+
+    @Html.AntiForgeryToken()
+    <button id="submit" type="submit" class="btn btn-primary">Save</button>
+}
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+

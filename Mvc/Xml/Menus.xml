@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Menus>
+  <Menu>
+    <MenuId>1</MenuId>
+    <ParentMenuId>0</ParentMenuId>
+    <MenuTitle>Home (XML)</MenuTitle>
+    <DisplayOrder>10</DisplayOrder>
+    <MenuAction>/Home/Index</MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>2</MenuId>
+    <ParentMenuId>0</ParentMenuId>
+    <MenuTitle>Maintenance</MenuTitle>
+    <DisplayOrder>20</DisplayOrder>
+    <MenuAction></MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>3</MenuId>
+    <ParentMenuId>2</ParentMenuId>
+    <MenuTitle>Users</MenuTitle>
+    <DisplayOrder>10</DisplayOrder>
+    <MenuAction>/Maintenance/Users</MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>4</MenuId>
+    <ParentMenuId>2</ParentMenuId>
+    <MenuTitle>Roles</MenuTitle>
+    <DisplayOrder>20</DisplayOrder>
+    <MenuAction>/Maintenance/Roles</MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>5</MenuId>
+    <ParentMenuId>0</ParentMenuId>
+    <MenuTitle>Reports</MenuTitle>
+    <DisplayOrder>30</DisplayOrder>
+    <MenuAction></MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>6</MenuId>
+    <ParentMenuId>5</ParentMenuId>
+    <MenuTitle>Report 1</MenuTitle>
+    <DisplayOrder>10</DisplayOrder>
+    <MenuAction>/Reports/Report1</MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>7</MenuId>
+    <ParentMenuId>5</ParentMenuId>
+    <MenuTitle>Report 2</MenuTitle>
+    <DisplayOrder>20</DisplayOrder>
+    <MenuAction>/Reports/Report2</MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>8</MenuId>
+    <ParentMenuId>0</ParentMenuId>
+    <MenuTitle>Lookup</MenuTitle>
+    <DisplayOrder>40</DisplayOrder>
+    <MenuAction></MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>9</MenuId>
+    <ParentMenuId>8</ParentMenuId>
+    <MenuTitle>Logs</MenuTitle>
+    <DisplayOrder>10</DisplayOrder>
+    <MenuAction>/Lookup/Logs</MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>10</MenuId>
+    <ParentMenuId>8</ParentMenuId>
+    <MenuTitle>Resources</MenuTitle>
+    <DisplayOrder>20</DisplayOrder>
+    <MenuAction>/Lookup/Resources</MenuAction>
+  </Menu>
+  <Menu>
+    <MenuId>11</MenuId>
+    <ParentMenuId>8</ParentMenuId>
+    <MenuTitle>Lookup Tables</MenuTitle>
+    <DisplayOrder>30</DisplayOrder>
+    <MenuAction>/Lookup/LookupTables</MenuAction>
+  </Menu>
+</Menus>

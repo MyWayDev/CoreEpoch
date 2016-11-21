@@ -1,0 +1,95 @@
+﻿CreateStoredProcedure(
+				"WareHouse.FillDimDate",
+				p => new
+				{
+					STARTDATE = p.DateTime(),
+					ENDDATE = p.DateTime()
+					
+				},
+				body:
+					@" 
+					   SET @ENDDATE=getdate()
+					   DECLARE @LOOPDATE DATETIME  
+					   SET @LOOPDATE = @STARTDATE
+					   WHILE @LOOPDATE <= @ENDDATE
+					   BEGIN
+ 
+					   INSERT [WareHouse].[DimDates]([DateKey], [DateAltKey], [Year], [Quarter], [Month],
+									[MonthName], [DayOfMonth], [DayOfWeek], [DayName], [WeekOfMonth])
+						  VALUES (
+						  CAST(CONVERT(VARCHAR(8),@LOOPDATE,112)AS INT),
+						  @LOOPDATE,
+						  YEAR(@LOOPDATE),
+						  Datepart(qq,@LOOPDATE),
+						  Month(@LOOPDATE),
+						  datename(mm,@LOOPDATE),
+						  Day(@LOOPDATE),
+						  datepart(dw,@LOOPDATE),
+						  datename(dw,@LOOPDATE),
+						  DATEPART(WEEK, @LOOPDATE)  - DATEPART(WEEK, DATEADD(MM, DATEDIFF(MM,0,@LOOPDATE), 0))+ 1 
+						  )
+						  SET @LOOPDATE = DateAdd(dd,1,@LOOPDATE)
+					  END"
+			);
+			Sql("ALTER TABLE Product.ProductTrees ADD OrgLevel AS (OrgNode.GetLevel())");
+			Sql("CREATE UNIQUE INDEX ProductGroupOrgNc1 ON Product.ProductTrees(OrgLevel, OrgNode)");
+			CreateStoredProcedure(
+				"Product.AddGroup",
+				p => new
+				{
+					grname = p.String(),
+					prntid = p.Int()
+				},
+				body:
+					 @"DECLARE @pOrgNode hierarchyid, @lc hierarchyid ,@grpid int
+					   SELECT @pOrgNode = [OrgNode] 
+					   FROM [Product].[ProductTrees] 
+					   WHERE [GroupId] = @prntid
+					   SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+					   BEGIN TRANSACTION
+						  SELECT @lc = max([OrgNode]) 
+						  FROM [Product].[ProductTrees]
+						  WHERE [OrgNode].GetAncestor(1) =@pOrgNode ;
+						  INSERT [Product].[ProductGroups] ([GroupName])
+						  VALUES(@grname)
+						  SELECT @grpid=GroupId
+						  FROM [Product].[ProductGroups]
+						  WHERE [GroupName]=@grname
+						  INSERT [Product].[ProductTrees] ([OrgNode], [GroupId],[ParentId])
+						  VALUES(@pOrgNode.GetDescendant(@lc, NULL), @grpid, @prntid)
+					   COMMIT"
+			);
+			CreateStoredProcedure(
+				"Promo.PeriodDetailSp",
+				p => new
+				{
+					STARTDATE = p.DateTime(),
+					ENDDATE = p.DateTime(),
+					PId = p.int()
+					
+				},
+				body:
+					@" 
+					   
+					   DECLARE @LOOPDATE DATETIME  
+					   SET @LOOPDATE = @STARTDATE
+					   WHILE @LOOPDATE <= @ENDDATE
+					   BEGIN
+ 
+					   INSERT [Promo].[PeriodDetails]([PeriodId], [PeriodDetailId], [Year], [Quarter], [Month],
+									[MonthName], [DayOfMonth], [DayOfWeek], [DayName], [WeekOfMonth])
+						  VALUES (
+						  @PId,
+						  CAST(CONVERT(VARCHAR(8),@LOOPDATE,112)AS INT),
+						  YEAR(@LOOPDATE),
+						  Datepart(qq,@LOOPDATE),
+						  Month(@LOOPDATE),
+						  datename(mm,@LOOPDATE),
+						  Day(@LOOPDATE),
+						  datepart(dw,@LOOPDATE),
+						  datename(dw,@LOOPDATE),
+						  DATEPART(WEEK, @LOOPDATE)  - DATEPART(WEEK, DATEADD(MM, DATEDIFF(MM,0,@LOOPDATE), 0))+ 1 
+						  )
+						  SET @LOOPDATE = DateAdd(dd,1,@LOOPDATE)
+					  END"
+			);

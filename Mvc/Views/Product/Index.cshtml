@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Mvc.Models.PGModel>
+@{
+    ViewBag.Title = "Index";
+
+}
+<h2>Product</h2>
+@*@if (!Model.Any())
+{
+    <p>There IS No Product Avalable</p>
+}*@
+
+<table id="Products" class="table table-bordered table-hover">
+
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Product Name</th>
+        <th>Product Group</th>
+        <th>Delete/Edit</th>
+        
+
+    </tr>
+    </thead>
+    <tbody>
+    
+    </tbody>
+</table>
+
+
+@*@foreach (var p in Model)
+    {
+
+        <tr>
+            <td>
+
+                @Html.ActionLink(p.Id, "Edit", "Product", new {id = p.Id}, new {})
+            </td>
+            <td>
+                @p.ProductName
+            </td>
+            <td>
+                @p.ProductGroup.GroupName
+            </td>
+            <td>
+                <button data-product-id="@p.Id" class="btn btn-danger js-delete fa fa-remove"></button>
+                <button data-product-id="@p.Id" class="btn btn-success   js-delete fa fa-pencil"></button>
+
+            </td>
+
+        </tr>
+    }
+*@
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#Products").dataTable({
+                ajax: {
+                    url: "/api/products",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "id",
+                        render: function (data, type, product) {
+                            return "<a href='/product/edit/" + product.id + "'>" + product.id + "</a>";
+                        }
+                    },
+                    {
+                        data: "productName"
+                    },
+                {
+                  data:"groupName"  
+                },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class ='btn btn-success js-delete fa fa-flash' data-product-id=" + data + "></button>";
+                        }
+                    }
+                ]
+
+            });
+
+            $("#Products").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are You Sure you want to delete Product" + " " + button.attr("data-product-id"), function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/products/" + button.attr("data-product-id"),
+                            method: "DELETE",
+                            success: function () {
+                                button.parents("tr").remove();
+
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,65 @@
+﻿
+@model Mvc.Models.UserData
+
+@{
+    ViewBag.Title = "Input Mask Sample 1";
+}
+
+<h2>Use jQuery for input masks</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-xs-12 col-md-6 center-block">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Employee Info</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.StartDate, "Start Date")
+                        @Html.TextBoxFor(m => m.StartDate)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhoneNumber, "Phone Number")
+                        @Html.TextBoxFor(m => m.PhoneNumber)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Salary)
+                        @Html.TextBoxFor(m => m.Salary)
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button type="button"
+                            class="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.inputmask.bundle.min.js"></script>
+
+    <script>
+    $(document).ready(function () {
+      // NOTE: Must use input type='text' and not 'email'
+      //       in order for masking to work
+      $("#Email").inputmask("email");
+      $("#StartDate").inputmask("date");
+      $("#PhoneNumber").inputmask("mask", { "mask": "(999) 999-9999" });
+      // NOTE: Must use autoUnmask to allow numerics to
+      //       post back to MVC model
+      //       Must use input type='text' and not 'number' in
+      //       order for masking to work
+      $("#Salary").inputmask("currency", { 'removeMaskOnSubmit': true });
+    });
+    </script>
+}
