@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201611211307340_Intial.Designer.cs">
       <DependentUpon>201611211307340_Intial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611211340312_PeriodFlagEnum.cs" />
+    <Compile Include="Migrations\201611211340312_PeriodFlagEnum.Designer.cs">
+      <DependentUpon>201611211340312_PeriodFlagEnum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,6 +90,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611211307340_Intial.resx">
       <DependentUpon>201611211307340_Intial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611211340312_PeriodFlagEnum.resx">
+      <DependentUpon>201611211340312_PeriodFlagEnum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

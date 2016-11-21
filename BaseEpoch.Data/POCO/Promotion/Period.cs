@@ -19,8 +19,13 @@ namespace BaseEpoch.Data.POCO.Promotion
         public string PeriodName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public string PeriodFlag  { get; set; }
+        public PeriodFlg PeriodFlag  { get; set; }
         public bool Active { get; set; }
-        
+        public enum PeriodFlg
+        {
+            Period = 0,
+            Season = 1
+            
+        }
     }
 }
