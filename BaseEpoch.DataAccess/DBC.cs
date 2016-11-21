@@ -10,6 +10,7 @@ using BaseEpoch.Data.POCO.Base;
 using BaseEpoch.Data.POCO.Promotion;
 using BaseEpoch.Data.POCO.TimeLine;
 using BaseEpoch.DataAccess.CONFIG;
+using BaseEpoch.DataAccess.Migrations;
 
 namespace BaseEpoch.DataAccess
 {
