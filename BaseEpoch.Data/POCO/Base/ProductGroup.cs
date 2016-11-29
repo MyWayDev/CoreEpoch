@@ -19,7 +19,9 @@ namespace BaseEpoch.Data.POCO.Base
 
         public int GroupId { get; set; }
         public string GroupName { get; set; }
-         
+
+        public int? Parentid { get; set; }
+
 
     }
 }

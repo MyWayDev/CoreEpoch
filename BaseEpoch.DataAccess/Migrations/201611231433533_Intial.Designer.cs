@@ -13,7 +13,7 @@ namespace BaseEpoch.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201611211307340_Intial"; }
+            get { return "201611231433533_Intial"; }
         }
         
         string IMigrationMetadata.Source
